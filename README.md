@@ -4,18 +4,18 @@ TODO: consider automating some steps
 
 ## Setting up a local instance
 
-(\*)Download image: `docker pull fauna/faunadb`
+\*Download image: `docker pull fauna/faunadb`
 
 Run Local Instance: `docker run --rm --name faunadb -p 8443:8443 fauna/faunadb`. Then leave it as it is, and open a new terminal tab.
 
-(\*)Add Local Endpoint: `fauna add-endpoint "http:/localhost:8443”`
+\*Add Local Endpoint: `fauna add-endpoint "http:/localhost:8443”`
 (You will be prompted to enter "Endpoint Key", enter **secret** — this is the default key for local instance)
 
 See if endpoint has been added: `fauna list-endpoints`
 
-(\*)Set local endpoint as a default one: `fauna default-endpoint localhost`
+\*Set local endpoint as a default one: `fauna default-endpoint localhost`
 
-(\*) - do it only on first setup.
+\* - do it only on first setup.
 
 [Full Instructions](https://gist.github.com/CaryBourgeois/ebe08f8819fc1904523e360746a94bae)
 
