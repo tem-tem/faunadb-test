@@ -14,6 +14,7 @@ if (process.env.FAUNA_PORT) {
 }
 
 export const genFaunaClient = () => {
+  console.log(faunaOptions);
   const faunaClient = new faunadb.Client(faunaOptions);
   return faunaClient;
 };
