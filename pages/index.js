@@ -1,121 +1,52 @@
-import fetch from 'isomorphic-unfetch';
-import Head from 'next/head';
+import Head from "next/head";
+import { query as q } from "faunadb";
+import { useState, useContext } from "react";
+import { ConfigContext } from "../src/helpers/configContext";
 
-const NOT_DEPLOYED = 'NOT_DEPLOYED';
-class NotDeployedError extends Error {
-  constructor() {
-    super();
-    this.code = NOT_DEPLOYED;
-    this.message = 'Project must be deployed to ZEIT Now';
-  }
-}
+function App() {
+  const { faunaClient } = useContext(ConfigContext);
+  const [cols, setCols] = useState([]);
 
-function App({ collections = [], isDeployed }) {
-  const hasCollections = collections.length > 0;
-
-  if (typeof isDeployed === 'undefined') {
-    return <p>Loading...</p>;
-  }
+  const listCollections = () => {
+    if (!faunaClient) return;
+    setCols([]);
+    faunaClient
+      .paginate(q.Collections())
+      .map(ref => {
+        return q.Get(ref);
+      })
+      .each(page => {
+        setCols(c => c.concat(page));
+      });
+  };
+  const s = String(process.env.FAUNADB_SECRET);
 
   return (
     <div style={{ maxWidth: 600, padding: 16 }}>
       <Head>
         <title>FaunaDB ZEIT App</title>
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width"
-          key="viewport"
-        />
-        <link
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          rel="stylesheet"
-        />
       </Head>
-      <style jsx global>{`
-        html,
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-          line-height: 1.7rem;
-        }
 
-        code {
-          font-family: Menlo, Monaco, 'Lucida Console', 'Liberation Mono',
-            'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New',
-            monospace, serif;
-        }
-      `}</style>
+      <div>
+        secret:
+        {s}
+      </div>
+      <button onClick={listCollections}>List Collections</button>
       <h1>FaunaDB ZEIT Integration</h1>
-      {isDeployed ? (
-        <>
-          <h2>Collections</h2>
-          {hasCollections ? (
-            <ul>
-              {collections.map(({ name }) => (
-                <li key={name}>{name}</li>
-              ))}
-            </ul>
-          ) : (
-            <h5>No Collections</h5>
-          )}
-        </>
-      ) : (
-        <>
-          <h2>Deploy to ZEIT Now to verify integration</h2>
-          <p style={{ fontSize: 20 }}>
-            The <code>FAUNADB_SECRET</code> environment variable is not
-            configured locally or in CodeSandbox, but will be available to the
-            application when deployed to ZEIT Now.
-          </p>
-          <h3>Steps to deploy</h3>
-          <ol>
-            <li>
-              Click on the Deployment menu (the rocket icon in the sidebar)
-            </li>
-            <li>Click the "Fork Sandbox" button</li>
-            <li>Return to the Deployment menu</li>
-            <li>
-              Click "Now" (You'll need to sign in to Now when you're deploying
-              for the first time)
-            </li>
-            <li>
-              Click the "Deploy" button, then click the "Deploy Now" button in the
-              DEPLOYMENT dialog
-            </li>
-            <li>
-              Click the deployment link and wait for building to complete to
-              verify that the application lists the collections in your database
-            </li>
-          </ol>
-        </>
-      )}
+      <>
+        <h2>Collections</h2>
+        {cols.length > 0 ? (
+          <ul>
+            {cols.map(({ name }) => (
+              <li key={name}>{name}</li>
+            ))}
+          </ul>
+        ) : (
+          <h5>No Collections</h5>
+        )}
+      </>
     </div>
   );
 }
-
-App.getInitialProps = async ({ req }) => {
-  try {
-    const { 'x-now-deployment-url': nowURL } = req.headers;
-
-    if (!nowURL) {
-      throw new NotDeployedError();
-    }
-
-    const res = await fetch(`https://${nowURL}/api/collections`);
-    const { collections, error } = await res.json();
-
-    if (!res.ok) {
-      throw new Error(error.message);
-    }
-
-    return { collections, isDeployed: true };
-  } catch (error) {
-    return {
-      error: {
-        message: error.message
-      },
-      isDeployed: error.code !== NOT_DEPLOYED
-    };
-  }
-};
 
 export default App;
