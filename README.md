@@ -42,9 +42,7 @@ Then exit shell, create key for this db: `fauna create-key my_db`. And put it in
 
 ## Setting up a project
 
-Project uses [faunadb-js driver](https://github.com/fauna/faunadb-js) to connect, and manage database. It uses env variables listed below in `.env` file, to configure itself.
-
-To use `faunadb-js` in project, a `clinet` should be created. Study code for an example: [setting up fauna-client](https://github.com/tem-tem/faunadb-test/blob/master/src/helpers/faunaConfig.js), and [calling collections](https://github.com/tem-tem/faunadb-test/blob/5a7111151637b15e3b15ab5843a422d11791504e/pages/index.js#L10-L21)
+Project uses [faunadb-js driver](https://github.com/fauna/faunadb-js) to connect, and manage database. It uses env variables listed below in `.env` file, to configure itself. To use `faunadb-js` in project, a `clinet` should be created. Study code for an example: [setting up fauna-client](https://github.com/tem-tem/faunadb-test/blob/master/src/helpers/faunaConfig.js), and [calling collections](https://github.com/tem-tem/faunadb-test/blob/5a7111151637b15e3b15ab5843a422d11791504e/pages/index.js#L10-L21)
 
 Local `.env.development` file:
 
@@ -55,10 +53,9 @@ FAUNA_SCHEME=http
 FAUNA_PORT=8443
 FAUNA_ROOT_KEY=secret
 ```
+_When deploying to production, you only need to set FAUNADB_SECRET variable, the rest of it are set by default_
 
-_In production, you only need FAUNADB_SECRET, the rest of it is set to work in production by default_
-
-Env variables are handled by `dotenv-load`:
+Local env variables are configured using `dotenv-load`:
 
 ```js
 // next.config.js
