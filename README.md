@@ -8,10 +8,13 @@ It is assumed that you already have docker installed.
 
 ## How-to
 
-### Setting up
+### Set up
 
-TODO: add error handling to scripts
-TODO: separate db-setup and seed
+> TODO: add error handling to scripts
+
+> TODO: separate db-setup and seed
+
+Run these two commands to set up a local faunadb.
 
 1. `yarn run-fauna`. Then don't close the terminal instance. Note that everytime a local instance of FaunaDB is shut down, all of its databases will be deleted.
 
@@ -19,14 +22,14 @@ TODO: separate db-setup and seed
 
 scripts are located in `/src/db/`
 
-### Seeds
+### Seed
 
 Seeds are in `/src/db/seed.fql`.
 
 [Examples](https://docs.fauna.com/fauna/current/start/cloud#shell) from doc
 TODO: add guides to seeding
 
-## Manual Setup
+## How-to for Manual Setup
 
 ### Setting up a local instance
 
