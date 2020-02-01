@@ -27,7 +27,8 @@ scripts are located in `/src/db/`
 Seeds are in `/src/db/seed.fql`.
 
 [Examples](https://docs.fauna.com/fauna/current/start/cloud#shell) from doc
-TODO: add guides to seeding
+
+> TODO: add guides to seeding
 
 ## How-to for Manual Setup
 
