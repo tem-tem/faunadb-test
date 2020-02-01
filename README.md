@@ -30,7 +30,7 @@ Seeds are in `/src/db/seed.fql`.
 
 > TODO: add guides to seeding
 
-## How-to for Manual Setup
+## Set up manually
 
 ### Setting up a local instance
 
