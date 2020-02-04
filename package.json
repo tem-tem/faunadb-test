@@ -5,8 +5,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "run-fauna": "bash ./src/db/runFauna.sh",
-    "setupdb": "bash ./src/db/setupDB.sh"
+    "setup-db": "bash ./src/db/setup-db.sh"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",
