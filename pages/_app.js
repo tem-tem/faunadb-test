@@ -1,11 +1,25 @@
 import { ConfigProvider } from "../src/helpers/configContext";
 import { genFaunaClient } from "../src/helpers/faunaConfig";
+import { SWRConfig } from "swr";
+import { GraphQLClient } from "graphql-request";
+
+const endpoint = "https://graphql.fauna.com/graphql";
+const dbKey = process.env.FAUNADB_SECRET;
+const graphQLClient = new GraphQLClient(endpoint, {
+  headers: {
+    authorization: `Bearer ${dbKey}`
+  }
+});
+
+const fetcher = query => graphQLClient.request(query);
 
 function MyApp({ Component, pageProps }) {
   const faunaClient = genFaunaClient();
   return (
     <ConfigProvider faunaClient={faunaClient}>
-      <Component {...pageProps} />
+      <SWRConfig value={{ fetcher }}>
+        <Component {...pageProps} />
+      </SWRConfig>
     </ConfigProvider>
   );
 }
