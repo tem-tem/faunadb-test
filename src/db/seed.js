@@ -7,13 +7,18 @@ usernames = [
   "captain america"
 ];
 
-const users = usernames.map(i => `{"username": "${i}"}`);
+const buildGraphQLSeed = () => {
+  const users = usernames.map(i => `{"username": "${i}"}`);
 
-console.log(`{
-  "query": "mutation AddUsers($users: [UserInput]) {
-    addUsers(usernames: $users) {username}
-  }",
-  "variables": {
-    "users": [${users.join(",")}]
-  }
-}`);
+  return `{
+    "query": "mutation AddUsers($users: [UserInput]) {
+      addUsers(usernames: $users) {username}
+    }",
+    "variables": {
+      "users": [${users.join(",")}]
+    }
+  }`;
+};
+
+// this makes it possible to access the result from bash
+console.log(buildGraphQLSeed);
