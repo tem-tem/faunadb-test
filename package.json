@@ -5,9 +5,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "db-setup": "bash ./config_fauna/setup.sh",
-    "db-seed": "bash ./config_fauna/seed.sh",
-    "setup-local-db": "yarn db-setup && yarn db-seed"
+    "setup-db": "bash ./config_fauna/setup.sh",
+    "seed-db": "bash ./config_fauna/seed.sh",
+    "setup-local-db": "yarn setup-db && yarn seed-db"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",

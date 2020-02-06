@@ -16,11 +16,32 @@ It is expected that each developer will create his own instance of database usin
 
 ### Setup
 
-Run `yarn setup-db <database-name>` to create your own instance of database. You can leave `<database-name>` empty, then directory name will be used as a database name.
+Run `yarn setup-local-db` to create and seed your own development database.
 
-Running this command will create and setup a database using your account, it will also create a `.env.development.local` file with newly created secret-key. It will be used over `.env.development`. So, if you'd want to connect to a staging databse, just delete `.env.development.local`.
+#### Semi-Manual Setup
+
+The `yarn setup-local-db` just runs 2 commands: `yarn setup-db && yarn seed-db`. It is possible to run them separately.
+
+##### `yarn setup-db`
+
+What it does:
+
+1. creates your own instance of database using your fauna account
+1. creates `.env.development.local` with database-key, wich will be used over `.env.development`
+1. uploads faunadb resolvers (required by fauna) \\ TODO: add explanations
+1. uploads graphQL schema
+
+##### `yarn seed-db`
+
+What it does:
+
+1. reads database key from `.env.development.local`
+1. runs `src/db/seed.js`
+1. sends seed to your own database
 
 ## Details
+
+> TODO: replace with graphQL
 
 Project uses [faunadb-js driver](https://github.com/fauna/faunadb-js) to connect, and manage database. It uses env variables from dot-env files, to configure itself.
 
