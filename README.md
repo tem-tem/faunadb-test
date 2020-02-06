@@ -16,11 +16,11 @@ It is expected that each developer will create his own instance of database usin
 
 ### Setup
 
-Run `yarn setup-local-db` to create and seed your own development database.
+Run `yarn setup-seed-db` to create and seed your own development database.
 
 #### Semi-Manual Setup
 
-The `yarn setup-local-db` just runs 2 commands: `yarn setup-db && yarn seed-db`. It is possible to run them separately.
+The `yarn setup-seed-db` just runs 2 commands: `yarn setup-db && yarn seed-db`. It is possible to run them separately.
 
 ##### `yarn setup-db`
 
@@ -28,7 +28,7 @@ What it does:
 
 1. creates your own instance of database using your fauna account
 1. creates `.env.development.local` with database-key, wich will be used over `.env.development`
-1. uploads faunadb resolvers (required by fauna) \\ TODO: add explanations
+1. uploads faunadb resolvers (Our schema has bulk-create-mutation. This mutation isn’t created by Fauna automatically (though it is ticketed feature request), so custom resolver has to be defined for it. [Blogpost](https://www.freecodecamp.org/news/how-to-use-faunadb/))
 1. uploads graphQL schema
 
 ##### `yarn seed-db`
