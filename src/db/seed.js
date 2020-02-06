@@ -21,4 +21,4 @@ const buildGraphQLSeed = () => {
 };
 
 // this makes it possible to access the result from bash
-console.log(buildGraphQLSeed);
+console.log(buildGraphQLSeed());

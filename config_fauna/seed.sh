@@ -26,5 +26,6 @@ then
 fi
 
 echo "Seeding from file './src/db/seed.js'..."
+echo "$mutations"
 curl -d "$mutations" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
 echo -e '\n\nSeeding Complete.'
