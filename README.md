@@ -16,7 +16,7 @@ It is expected that each developer will create his own instance of database usin
 
 ### Setup
 
-Run `yarn setup-seed-db` to create and seed your own development database.
+Run `yarn setup-seed-db` to create and seed your own development database, and that's it.
 
 #### Semi-Manual Setup
 
@@ -40,12 +40,6 @@ What it does:
 1. sends seed to your own database
 
 ## Details
-
-> TODO: replace with graphQL
-
-Project uses [faunadb-js driver](https://github.com/fauna/faunadb-js) to connect, and manage database. It uses env variables from dot-env files, to configure itself.
-
-To use `faunadb-js` in a project, a `clinet` should be created. Study code for an example: [setting up fauna-client](https://github.com/tem-tem/faunadb-test/blob/master/src/helpers/faunaConfig.js), and [calling collections](https://github.com/tem-tem/faunadb-test/blob/5a7111151637b15e3b15ab5843a422d11791504e/pages/index.js#L10-L21)
 
 Local env variables are configured using `dotenv-load`:
 
