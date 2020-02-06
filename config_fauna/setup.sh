@@ -38,16 +38,24 @@ returnDBName()
   fi
 }
 
+setResolvers()
+{
+  fauna eval $1 --file=./src/db/resolvers.fql
+}
+
 getKeyAndUploadSchema()
 {
-
+  databaseName="$1"
   echo "Getting a new secret key..."
-  databaseKey=$( getDBKey $1 )
+  databaseKey=$( getDBKey $databaseName )
   echo "New secret key: $databaseKey"
   echo -e 'Done.\n'
 
+  echo "Setting Resolvers..."
+  setResolvers $databaseName
+
   writeENV $databaseKey
-  echo "Uploading schema to '$1'..."
+  echo "Uploading schema to '$databaseName'..."
   curl -H "Authorization: Bearer $databaseKey" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
 
   echo -e '\nSetup Complete.\n'
@@ -69,7 +77,8 @@ runSetup()
             exit
           ;;
           Override )
-            getKeyAndUploadSchema $1
+            fauna delete-database $1
+            runSetup $1
             exit
           ;;
       esac

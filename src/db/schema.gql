@@ -2,6 +2,15 @@ type User {
   username: String!
 }
 
+input UserInput {
+  username: String!
+}
+
+type Mutation {
+  addUsers(usernames: [UserInput]): [User]
+    @resolver(name: "add_users", paginated: false)
+}
+
 type Query {
   allUsers: [User!]!
 }

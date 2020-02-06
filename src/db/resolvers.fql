@@ -1,0 +1,12 @@
+CreateFunction({
+  name: "add_users",
+  body: Query(
+    Lambda(
+      ["users"],
+      Map(
+        Var("users"),
+        Lambda("X", Create(Collection("User"), { data: Var("X") }))
+      )
+    )
+  )
+})
