@@ -14,6 +14,12 @@ getDBKey()
   fi
 }
 
+writeENV()
+{
+  envVars="FAUNADB_SECRET=$1"
+  echo -e $envVars > ./.env.development
+}
+
 getKeyAndUploadSchema()
 {
   databaseName="$1"
@@ -24,6 +30,7 @@ getKeyAndUploadSchema()
 
   echo "Setting Resolvers..."
   fauna eval $databaseName --file=./src/db/resolvers.fql
+  writeENV $databaseKey
 
   curl -H "Authorization: Bearer $databaseKey" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
 
@@ -35,6 +42,7 @@ key=$(read_var FAUNADB_SECRET .env.development)
 echo "Authenticating with key: $key..."
 echo "$key" | fauna cloud-login
 echo "$key"
+echo "\n\n"
 
 fauna create-database $1
 getKeyAndUploadSchema $1
