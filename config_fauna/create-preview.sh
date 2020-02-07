@@ -4,6 +4,16 @@ read_var() {
     echo ${VAR[1]}
 }
 
+getDBKey()
+{
+  key=$(fauna create-key $1 | grep "secret: \w*$" | cut -f2- -d:)
+  if [ -z "$key" ]; then
+    getDBKey $1
+  else
+    echo $key
+  fi
+}
+
 getKeyAndUploadSchema()
 {
   databaseName="$1"
@@ -13,10 +23,8 @@ getKeyAndUploadSchema()
   echo -e 'Done.\n'
 
   echo "Setting Resolvers..."
-  setResolvers $databaseName
+  fauna eval $databaseName --file=./src/db/resolvers.fql
 
-  writeENV $databaseKey
-  echo "Uploading schema to '$databaseName'..."
   curl -H "Authorization: Bearer $databaseKey" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
 
   echo -e '\nSetup Complete.\n'
