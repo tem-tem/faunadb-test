@@ -8,7 +8,7 @@
     "setup-db": "bash ./config_fauna/setup.sh",
     "seed-db": "bash ./config_fauna/seed.sh",
     "setup-seed-db": "yarn setup-db && yarn seed-db",
-    "authenticate-fauna": "bash ./config_fauna/authenticate.sh"
+    "create-preview-db": "bash ./config_fauna/create-preview.sh"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",

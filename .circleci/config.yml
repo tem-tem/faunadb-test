@@ -4,7 +4,7 @@
 #
 version: 2.1
 jobs:
-  build-db:
+  preview-db:
     docker:
       # specify the version you desire here
       - image: circleci/node:10.17.0
@@ -33,11 +33,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn authenticate-fauna
-      - run: yarn setup-db "${CIRCLE_BRANCH}"
-      - run: yarn seed-db "CI"
+      - run: yarn create-preview-db "${CIRCLE_BRANCH}"
 workflows:
   version: 2
   setup-db:
     jobs:
-      - build-db
+      - preview-db
