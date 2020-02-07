@@ -2,9 +2,9 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
 jobs:
-  create-db:
+  build-db:
     docker:
       # specify the version you desire here
       - image: circleci/node:10.17.0
@@ -34,3 +34,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn setup-seed-db
+workflows:
+  version: 2
+  setup-db:
+    jobs:
+      - build-db
