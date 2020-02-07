@@ -26,6 +26,7 @@ key=$(read_var FAUNADB_SECRET .env.development)
 
 echo "Authenticating with key: $key..."
 echo "$key" | fauna cloud-login
+echo "$key"
 
 fauna create-database $1
 getKeyAndUploadSchema $1
