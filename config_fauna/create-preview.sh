@@ -48,14 +48,16 @@ databaseName=$( echo "$1" | tr / _)
 fauna create-database $databaseName
 getKeyAndUploadSchema $databaseName
 
+# seeds
+
 seedFile=./src/db/seed.js
 if [ ! -f "$seedFile" ]; then
   echo "Error: Seed file '$seedFile' not found"
   exit
 fi
 
-mutations=$( node $seedFile )
-if [ -z "$mutations" ]
+seeds=$( node $seedFile )
+if [ -z "$seeds" ]
 then
   echo "Error: Seed file not returning seeds. It should return graphql readable string query"
   exit
@@ -64,6 +66,5 @@ fi
 key=$(read_var FAUNADB_SECRET .env.development)
 
 echo "Seeding from file './src/db/seed.js'..."
-echo "$mutations"
-curl -d "$mutations" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
+curl -d "$seeds" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
 echo -e '\n\nSeeding Complete.'
