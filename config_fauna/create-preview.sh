@@ -61,6 +61,8 @@ then
   exit
 fi
 
+key=$(read_var FAUNADB_SECRET .env.development)
+
 echo "Seeding from file './src/db/seed.js'..."
 echo "$mutations"
 curl -d "$mutations" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql

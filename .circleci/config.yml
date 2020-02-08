@@ -33,7 +33,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn create-preview-db "${CIRCLE_BRANCH}"
+      - run: yarn create-preview-db "${CIRCLE_BUILD_NUM}"
 workflows:
   version: 2
   setup-db:
