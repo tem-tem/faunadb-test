@@ -1,7 +1,13 @@
 read_var() {
+  if [ ! -f "$2" ]
+  then
+    eval "echo \${$1}"
+    exit
+  else
     VAR=$(grep $1 $2 | xargs)
     IFS="=" read -ra VAR <<< "$VAR"
     echo ${VAR[1]}
+  fi
 }
 
 getDBKey()
@@ -45,7 +51,8 @@ echo "$key"
 echo "\n\n"
 
 databaseName=$( echo "$1" | tr / _)
-fauna create-database $databaseName
+if ! fauna list-databases; then exit 1; fi
+if ! fauna create-database $databaseName; then exit 1; fi
 getKeyAndUploadSchema $databaseName
 
 # seeds
