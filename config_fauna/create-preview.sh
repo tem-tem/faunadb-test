@@ -42,11 +42,11 @@ key=$(read_var FAUNADB_SECRET .env.development)
 echo "Authenticating with key: $key..."
 echo "$key" | fauna cloud-login
 echo "$key"
-fauna list-databases
 echo "\n\n"
 
-fauna create-database $1
-getKeyAndUploadSchema $1
+databaseName=$( echo "$1" | tr / _)
+fauna create-database $databaseName
+getKeyAndUploadSchema $databaseName
 
 seedFile=./src/db/seed.js
 if [ ! -f "$seedFile" ]; then
