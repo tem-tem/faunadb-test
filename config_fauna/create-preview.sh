@@ -23,6 +23,7 @@ getDBKey()
 writeENV()
 {
   FAUNADB_SECRET_CURRENT=$1
+  export FAUNADB_SECRET_CURRENT
   envVars="FAUNADB_SECRET=$1"
   echo -e $envVars > ./.env.development
 }

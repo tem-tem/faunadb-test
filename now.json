@@ -2,8 +2,7 @@
   "name": "faunadb-zeit-sample-app",
   "build": {
     "env": {
-      "FAUNADB_SECRET": "@faunadb-secret",
-      "FAUNADB_SECRET_CURRENT": "@FAUNADB_SECRET_CURRENT"
+      "FAUNADB_SECRET": "@faunadb-secret"
     }
   },
   "env": {
