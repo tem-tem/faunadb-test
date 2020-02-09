@@ -43,11 +43,14 @@ getKeyAndUploadSchema()
   echo -e '\nSetup Complete.\n'
 }
 
+echo -e "\n"
+echo printenv
+echo -e "\n"
+
 key=$(read_var FAUNADB_SECRET ./.env.development)
 
 echo "Authenticating with key: $key..."
 echo $key | fauna cloud-login
-echo -e "\n"
 
 databaseName=$( echo "$1" | tr / _)
 if ! fauna list-databases; then exit 1; fi
