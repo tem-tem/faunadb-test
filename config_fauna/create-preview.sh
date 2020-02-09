@@ -44,7 +44,7 @@ getKeyAndUploadSchema()
 }
 
 echo -e "\n"
-echo printenv
+printenv
 echo -e "\n"
 
 key=$(read_var FAUNADB_SECRET ./.env.development)
