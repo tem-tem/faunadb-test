@@ -44,10 +44,7 @@ getKeyAndUploadSchema()
 
   echo -e '\nSetup Complete.\n'
 }
-
 printenv
-TEST="RANDOM VAR"
-export TEST
 
 key=$(read_var FAUNADB_SECRET ./.env.development)
 
