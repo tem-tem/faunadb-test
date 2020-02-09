@@ -44,6 +44,9 @@ getKeyAndUploadSchema()
 
   echo -e '\nSetup Complete.\n'
 }
+
+printenv
+
 key=$(read_var FAUNADB_SECRET ./.env.development)
 
 echo "Authenticating with key: $key..."
@@ -74,4 +77,3 @@ key=$(read_var FAUNADB_SECRET ./.env.development)
 echo "Seeding from file './src/db/seed.js'..."
 curl -d "$seeds" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
 echo -e '\n\nSeeding Complete.'
-printenv
