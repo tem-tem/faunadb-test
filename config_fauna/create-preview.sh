@@ -47,7 +47,7 @@ key=$(read_var FAUNADB_SECRET ./.env.development)
 
 echo "Authenticating with key: $key..."
 echo "$key" | fauna cloud-login
-echo "$key"
+wait $!
 echo "\n\n"
 
 databaseName=$( echo "$1" | tr / _)
