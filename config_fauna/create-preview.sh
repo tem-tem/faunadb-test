@@ -22,6 +22,7 @@ getDBKey()
 
 writeENV()
 {
+  FAUNADB_SECRET_CURRENT=$1
   envVars="FAUNADB_SECRET=$1"
   echo -e $envVars > ./.env.development
 }
@@ -42,10 +43,6 @@ getKeyAndUploadSchema()
 
   echo -e '\nSetup Complete.\n'
 }
-
-echo -e "\n"
-printenv
-echo -e "\n"
 
 key=$(read_var FAUNADB_SECRET ./.env.development)
 
