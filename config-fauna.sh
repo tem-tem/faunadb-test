@@ -88,15 +88,16 @@ writeENV()
 #
 
 env=$1
+echo $env
 databaseName=$( echo "$2" | tr / _)
-if [ -z "$databaseName" ];
+if [ -z "$databaseName" ]
 then
   echo "Missing database name. Can't start db setup."
   exit 1
 fi
 
 key=$( getDBKey $env )
-if [ -z "$key" ];
+if [ -z "$key" ]
 then
   echo "FAUNADB_SECRET key not found. Can't start db setup."
   exit 1
@@ -104,6 +105,7 @@ fi
 
 authorizeFauna $key
 if ! fauna create-database $databaseName; then exit 1; fi
+echo "log-authed"
 previewDBKey=$( createKey $databaseName )
 uploadSchema $databaseName $previewDBKey
 seed $previewDBKey $databaseName
@@ -111,8 +113,10 @@ seed $previewDBKey $databaseName
 if [ "$env" == "prod" ]
 then
   # app is deployed
+  echo "log-building"
   FAUNADB_SECRET_PREVIEW=$previewDBKey yarn next build
 else
   # script run locally
+  echo "log-not-building"
   writeENV $previewDBKey
 fi
