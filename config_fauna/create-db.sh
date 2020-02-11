@@ -5,5 +5,12 @@ then
   exit 1
 fi
 
+echo "Setting up..."
 databaseKey=$( bash ./config_fauna/setup.sh $databaseName )
+echo -e "Finished.\n"
+
+echo "Seeding..."
 bash ./config_fauna/seed.sh $databaseKey
+echo -e "Finished.\n"
+
+echo $databaseKey
