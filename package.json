@@ -5,8 +5,7 @@
     "dev": "next",
     "build": "bash ./config_fauna/create-preview.sh $NOW_GITHUB_COMMIT_SHA",
     "start": "next start",
-    "just-build": "next build",
-    "create-db": "bash ./config_fauna/create-db.sh"
+    "just-build": "next build"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",
