@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "yarn create-preview-db $NOW_GITHUB_COMMIT_SHA",
+    "build": "FAUNADB_SECRET_CURRENT=$(yarn create-db $NOW_GITHUB_COMMIT_SHA) yarn next build",
     "start": "next start",
-    "setup-db": "bash ./config_fauna/setup.sh",
-    "seed-db": "bash ./config_fauna/seed.sh",
-    "setup-seed-db": "yarn setup-db && yarn seed-db",
-    "create-preview-db": "bash ./config_fauna/create-preview.sh"
+    "just-build": "next build",
+    "create-db": "bash ./config_fauna/create-db.sh"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",
