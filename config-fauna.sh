@@ -20,10 +20,8 @@ getDBKey()
 {
   if [ "$1" == "prod" ]; then
     echo $FAUNADB_SECRET
-    exit
   else
     echo $( read_var FAUNADB_SECRET ./.env.development )
-    exit
   fi
 }
 
@@ -33,7 +31,6 @@ authorizeFauna()
   then
     echo "Authenticating with key: $1..."
     echo $1 | fauna cloud-login
-    exit
   fi
 }
 
@@ -62,14 +59,14 @@ seed()
   seedFile=./src/db/seed.js
   if [ ! -f "$seedFile" ]; then
     echo "Error: Seed file '$seedFile' not found"
-    exit
+    exit 1
   fi
 
   seeds=$( node $seedFile $2 )
   if [ -z "$seeds" ]
   then
     echo "Error: Seed file not returning seeds. It should return graphql readable string query"
-    exit
+    exit 1
   fi
 
   echo "Seeding with key $1..."
