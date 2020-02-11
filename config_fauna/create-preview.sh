@@ -20,30 +20,24 @@ getDBKey()
   fi
 }
 
-writeENV()
-{
-  now secrets rm faunadb-secret
-  now secrets add faunadb-secret $1
-  # FAUNADB_SECRET_CURRENT=$1
-  # export FAUNADB_SECRET_CURRENT
-  # FAUNADB_SECRET=$databaseKey
-  # envVars="FAUNADB_SECRET=$1"
-  # echo -e $envVars > ./.env.development
-}
+# writeENV()
+# {
+#   now secrets rm faunadb-secret-test
+#   now secrets add faunadb-secret-test $1
+#   # FAUNADB_SECRET_CURRENT=$1
+#   # export FAUNADB_SECRET_CURRENT
+#   # FAUNADB_SECRET=$databaseKey
+#   # envVars="FAUNADB_SECRET=$1"
+#   # echo -e $envVars > ./.env.development
+# }
 
 getKeyAndUploadSchema()
 {
-  databaseName="$1"
-  echo "Getting a new secret key..."
-  databaseKey=$( getDBKey $databaseName )
-  echo "New secret key: $databaseKey"
-  echo -e 'Done.\n'
-
   echo "Setting Resolvers..."
-  fauna eval $databaseName --file=./src/db/resolvers.fql
-  writeENV $databaseKey
+  fauna eval $1 --file=./src/db/resolvers.fql
+  # writeENV $databaseKey
 
-  curl -H "Authorization: Bearer $databaseKey" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
+  curl -H "Authorization: Bearer $2" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
 
   echo -e '\nSetup Complete.\n'
 }
@@ -57,7 +51,13 @@ echo $key | fauna cloud-login
 databaseName=$( echo "$1" | tr / _)
 if ! fauna list-databases; then exit 1; fi
 if ! fauna create-database $databaseName; then exit 1; fi
-getKeyAndUploadSchema $databaseName
+
+echo "Getting a new secret key..."
+databaseKey=$( getDBKey $databaseName )
+echo "New secret key: $databaseKey"
+echo -e 'Done.\n'
+
+getKeyAndUploadSchema $databaseName $databaseKey
 
 # seeds
 
@@ -67,15 +67,14 @@ if [ ! -f "$seedFile" ]; then
   exit
 fi
 
-seeds=$( node $seedFile )
+seeds=$( node $seedFile $NOW_GITHUB_COMMIT_SHA )
 if [ -z "$seeds" ]
 then
   echo "Error: Seed file not returning seeds. It should return graphql readable string query"
   exit
 fi
 
-key=$(read_var FAUNADB_SECRET ./.env.development)
-
 echo "Seeding from file './src/db/seed.js'..."
-curl -d "$seeds" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
+curl -d "$seeds" -H "Authorization: Bearer $databaseKey" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
 echo -e '\n\nSeeding Complete.'
+FAUNADB_SECRET_CURRENT="$databaseKey" yarn next build
