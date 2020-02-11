@@ -46,16 +46,6 @@ createKey()
   fi
 }
 
-createDatabase()
-{
-  if ! fauna create-database $1; then exit 1; fi
-  echo "Getting a new secret key..." >&2
-  databaseKey=$( createKey $1 )
-  echo "New secret key: $databaseKey" >&2
-
-  echo $databaseKey
-}
-
 uploadSchema()
 {
   echo "Setting Resolvers..."
@@ -104,7 +94,8 @@ then
 fi
 
 authorizeFauna $key
-previewDBKey=$( createDatabase $databaseName )
+if ! fauna create-database $databaseName; then exit 1; fi
+previewDBKey=$( createKey $databaseName )
 uploadSchema $databaseName $previewDBKey
 seed $previewDBKey
 
