@@ -18,12 +18,12 @@ read_var() {
 
 getDBKey()
 {
-  if [$1 == "prod"];
-  then
+  if [ "$1" == "prod" ]; then
     echo $FAUNADB_SECRET
     exit
   else
     echo $( read_var FAUNADB_SECRET ./.env.development )
+    exit
   fi
 }
 
@@ -54,7 +54,7 @@ uploadSchema()
   fauna eval $1 --file=./src/db/resolvers.fql
 
   curl -H "Authorization: Bearer $2" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
-  echo -e '\nSetup Complete.\n'
+  echo -e '\n\nSetup Completed.\n'
 }
 
 seed()
@@ -74,7 +74,7 @@ seed()
 
   echo "Seeding with key $1..."
   curl -d "$seeds" -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
-  echo -e '\n\nSeeding Complete.'
+  echo -e '\n\nSeeding Completed.\n'
 }
 
 writeENV()
@@ -107,7 +107,7 @@ previewDBKey=$( createKey $databaseName )
 uploadSchema $databaseName $previewDBKey
 seed $previewDBKey $databaseName
 
-if [$env = 'prod'];
+if [ "$env" = "prod" ];
 then
   # app is deployed
   FAUNADB_SECRET_PREVIEW=$previewDBKey yarn next build
