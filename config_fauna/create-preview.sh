@@ -22,8 +22,8 @@ getDBKey()
 
 writeENV()
 {
-  now secrets rm faunadb-secret
-  now secrets add faunadb-secret $1
+  now secrets rm faunadb-secret-test
+  now secrets add faunadb-secret-test $1
   # FAUNADB_SECRET_CURRENT=$1
   # export FAUNADB_SECRET_CURRENT
   # FAUNADB_SECRET=$databaseKey
