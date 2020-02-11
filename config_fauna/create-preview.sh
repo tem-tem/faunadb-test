@@ -12,3 +12,5 @@ echo -e "Finished.\n"
 echo "Seeding..."
 bash ./config_fauna/seed.sh $databaseKey
 echo -e "Finished.\n"
+
+FAUNADB_SECRET_CURRENT=$databaseKey yarn next build

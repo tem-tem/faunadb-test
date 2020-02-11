@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "FAUNADB_SECRET_CURRENT=$(yarn create-db $NOW_GITHUB_COMMIT_SHA) yarn next build",
+    "build": "bash ./config_fauna/create-preview.sh $NOW_GITHUB_COMMIT_SHA",
     "start": "next start",
     "just-build": "next build",
     "create-db": "bash ./config_fauna/create-db.sh"
