@@ -112,7 +112,6 @@ if [ "$env" == "prod" ]
 then
   # app is deployed
   FAUNADB_SECRET_PREVIEW=$previewDBKey yarn next build
-  exit
 else
   # script run locally
   writeENV $previewDBKey
