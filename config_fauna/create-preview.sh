@@ -86,6 +86,7 @@ writeENV()
 #
 # MAIN SCRIPT
 #
+
 env=$1
 databaseName=$( echo "$2" | tr / _)
 if [ -z "$databaseName" ];
@@ -107,7 +108,7 @@ previewDBKey=$( createKey $databaseName )
 uploadSchema $databaseName $previewDBKey
 seed $previewDBKey $databaseName
 
-if [ "$env" = "prod" ];
+if [ "$env" == "prod" ];
 then
   # app is deployed
   FAUNADB_SECRET_PREVIEW=$previewDBKey yarn next build
