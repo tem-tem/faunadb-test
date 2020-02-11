@@ -108,7 +108,7 @@ previewDBKey=$( createKey $databaseName )
 uploadSchema $databaseName $previewDBKey
 seed $previewDBKey $databaseName
 
-if [ "$env" == "prod" ];
+if [ "$env" == "prod" ]
 then
   # app is deployed
   FAUNADB_SECRET_PREVIEW=$previewDBKey yarn next build
