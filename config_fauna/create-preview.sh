@@ -67,7 +67,7 @@ if [ ! -f "$seedFile" ]; then
   exit
 fi
 
-seeds=$( node $seedFile )
+seeds=$( node $seedFile $NOW_GITHUB_COMMIT_SHA )
 if [ -z "$seeds" ]
 then
   echo "Error: Seed file not returning seeds. It should return graphql readable string query"
@@ -79,4 +79,4 @@ key=$(read_var FAUNADB_SECRET ./.env.development)
 echo "Seeding from file './src/db/seed.js'..."
 curl -d "$seeds" -H "Authorization: Bearer $key" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
 echo -e '\n\nSeeding Complete.'
-FAUNADB_SECRET_CURRENT="databaseKey" yarn next build
+FAUNADB_SECRET_CURRENT="$databaseKey" yarn next build

@@ -1,4 +1,6 @@
+const commint_sha = process.argv[2];
 usernames = [
+  commint_sha,
   "batman",
   "superman",
   "spider-man",
