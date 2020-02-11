@@ -4,7 +4,6 @@ import { SWRConfig } from "swr";
 import { GraphQLClient } from "graphql-request";
 
 const endpoint = "https://graphql.fauna.com/graphql";
-console.log(process);
 const dbKey = process.env.FAUNADB_SECRET_CURRENT || process.env.FAUNADB_SECRET;
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
