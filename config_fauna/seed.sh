@@ -5,6 +5,8 @@ read_var() {
 }
 
 key=$(read_var FAUNADB_SECRET .env.development.local)
+if $1 == "CI"; then key=$(read_var FAUNADB_SECRET .env.development); fi
+
 if [ -z "$key" ]
 then
   echo "Error: Couldn't find database key. Try running 'yarn setup-db' or set database key manually to '.env.development.local' in this format:"
