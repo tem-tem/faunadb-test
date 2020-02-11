@@ -2,11 +2,9 @@ import { ConfigProvider } from "../src/helpers/configContext";
 import { genFaunaClient } from "../src/helpers/faunaConfig";
 import { SWRConfig } from "swr";
 import { GraphQLClient } from "graphql-request";
-import getConfig from "next/config";
 
-const conf = getConfig();
 const endpoint = "https://graphql.fauna.com/graphql";
-console.log(conf);
+console.log(process.env);
 const dbKey = process.env.FAUNADB_SECRET_PREVIEW || process.env.FAUNADB_SECRET;
 const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
