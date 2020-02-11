@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "bash ./config_fauna/create-preview.sh $NOW_GITHUB_COMMIT_SHA",
+    "build": "bash ./config_fauna/create-preview.sh prod $NOW_GITHUB_COMMIT_SHA",
     "start": "next start",
-    "just-build": "next build"
+    "just-build": "next build",
+    "create-db": "bash ./config_fauna/create-preview.sh dev"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",
