@@ -22,10 +22,12 @@ getDBKey()
 
 writeENV()
 {
-  now secrets rm faunadb-secret
-  now secrets add faunadb-secret $1
-  # FAUNADB_SECRET_CURRENT=$1
-  # export FAUNADB_SECRET_CURRENT
+  # now secrets rm faunadb-secret-current
+  # echo -e "\n"
+  # now secrets add faunadb-secret-current $1
+  # echo -e "\n"
+  FAUNADB_SECRET_CURRENT=$1
+  export FAUNADB_SECRET_CURRENT
   # FAUNADB_SECRET=$databaseKey
   # envVars="FAUNADB_SECRET=$1"
   # echo -e $envVars > ./.env.development
