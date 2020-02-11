@@ -24,11 +24,11 @@ writeENV()
 {
   now secrets rm faunadb-secret
   now secrets add faunadb-secret $1
-  FAUNADB_SECRET_CURRENT=$1
-  export FAUNADB_SECRET_CURRENT
-  FAUNADB_SECRET=$databaseKey
-  envVars="FAUNADB_SECRET=$1"
-  echo -e $envVars > ./.env.development
+  # FAUNADB_SECRET_CURRENT=$1
+  # export FAUNADB_SECRET_CURRENT
+  # FAUNADB_SECRET=$databaseKey
+  # envVars="FAUNADB_SECRET=$1"
+  # echo -e $envVars > ./.env.development
 }
 
 getKeyAndUploadSchema()

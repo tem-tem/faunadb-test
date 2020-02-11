@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "yarn create-preview-db $NOW_GITHUB_COMMIT_SHA && next build",
+    "build": "next build",
     "start": "next start",
     "setup-db": "bash ./config_fauna/setup.sh",
     "seed-db": "bash ./config_fauna/seed.sh",
