@@ -31,8 +31,8 @@ authorizeFauna()
 {
   if ! fauna list-databases;
   then
-    echo "Authenticating with key: $key..."
-    echo $key | fauna cloud-login
+    echo "Authenticating with key: $1..."
+    echo $1 | fauna cloud-login
     exit
   fi
 }
