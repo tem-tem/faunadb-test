@@ -100,6 +100,7 @@ then
   exit 1
 fi
 
+echo "log-going-to-auth"
 authorizeFauna $key
 if ! fauna create-database $databaseName; then exit 1; fi
 echo "log-authed"
