@@ -49,9 +49,9 @@ createKey()
 createDatabase()
 {
   if ! fauna create-database $1; then exit 1; fi
-  echo "Getting a new secret key..."
+  echo "Getting a new secret key..." >&2
   databaseKey=$( createKey $1 )
-  echo "New secret key: $databaseKey"
+  echo "New secret key: $databaseKey" >&2
 
   echo $databaseKey
 }
@@ -80,7 +80,7 @@ seed()
     exit
   fi
 
-  echo "Seeding from file './src/db/seed.js'..."
+  echo "Seeding with key $1..."
   curl -d "$seeds" -H "Authorization: Bearer $1" -H "Content-Type: application/json" -X POST https://graphql.fauna.com/graphql
   echo -e '\n\nSeeding Complete.'
 }
@@ -104,8 +104,8 @@ then
 fi
 
 authorizeFauna $key
-databaseKey=$( createDatabase $databaseName )
-uploadSchema $databaseName $databaseKey
-seed $databaseKey
+previewDBKey=$( createDatabase $databaseName )
+uploadSchema $databaseName $previewDBKey
+seed $previewDBKey
 
-FAUNADB_SECRET_CURRENT=$databaseKey yarn next build
+FAUNADB_SECRET_CURRENT=$previewDBKey yarn next build
