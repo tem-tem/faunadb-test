@@ -5,5 +5,5 @@ then
   exit 1
 fi
 
-databaseKey=$( bash ./config_fauna/setup.sh )
+databaseKey=$( bash ./config_fauna/setup.sh $databaseName )
 bash ./config_fauna/seed.sh $databaseKey
