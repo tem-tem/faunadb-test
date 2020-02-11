@@ -20,22 +20,10 @@ getDBKey()
   fi
 }
 
-# writeENV()
-# {
-#   now secrets rm faunadb-secret-test
-#   now secrets add faunadb-secret-test $1
-#   # FAUNADB_SECRET_CURRENT=$1
-#   # export FAUNADB_SECRET_CURRENT
-#   # FAUNADB_SECRET=$databaseKey
-#   # envVars="FAUNADB_SECRET=$1"
-#   # echo -e $envVars > ./.env.development
-# }
-
 getKeyAndUploadSchema()
 {
   echo "Setting Resolvers..."
   fauna eval $1 --file=./src/db/resolvers.fql
-  # writeENV $databaseKey
 
   curl -H "Authorization: Bearer $2" 'https://graphql.fauna.com/import?mode=override' --data-binary "@./src/db/schema.gql"
 
