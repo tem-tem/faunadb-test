@@ -34,6 +34,7 @@ function App() {
     }`
       : null
   );
+  console.log(process.env);
 
   const allUsers = data && data.allUsers.data;
 
