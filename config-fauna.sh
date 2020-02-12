@@ -84,14 +84,16 @@ writeENV()
 # MAIN SCRIPT
 #
 
-git status
 
 # no need to setup a new database on master
 #
-if ["$NOW_GITHUB_COMMIT_REF" == "master"]; then exit; fi
+if ["$NOW_GITHUB_COMMIT_REF" == "master"]
+then
+  yarn next build
+  exit
+fi
 
 env=$1
-echo $env
 databaseName=$( echo "$2" | tr / _)
 if [ -z "$databaseName" ]
 then
