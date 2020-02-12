@@ -20,7 +20,7 @@ function App() {
         setCols(c => c.concat(page));
       });
   };
-  const s = String(process.env.FAUNADB_SECRET);
+  const s = JSON.stringify(process.env.ENVS);
 
   const [shouldFetch, setShouldFetch] = useState(false);
   const { data } = useSWR(
@@ -43,6 +43,8 @@ function App() {
       <Head>
         <title>FaunaDB ZEIT App</title>
       </Head>
+
+      <div>{s}</div>
 
       <div>
         <h2>Fetch users with SWR and graphql-request</h2>
