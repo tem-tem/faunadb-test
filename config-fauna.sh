@@ -100,10 +100,8 @@ then
   exit 1
 fi
 
-echo "log-going-to-auth"
 authorizeFauna $key
 if ! fauna create-database $databaseName; then exit 1; fi
-echo "log-authed"
 previewDBKey=$( createKey $databaseName )
 uploadSchema $databaseName $previewDBKey
 seed $previewDBKey $databaseName
@@ -111,10 +109,8 @@ seed $previewDBKey $databaseName
 if [ "$env" == "prod" ]
 then
   # app is deployed
-  echo "log-building"
   FAUNADB_SECRET_PREVIEW=$previewDBKey yarn next build
 else
   # script run locally
-  echo "log-not-building"
   writeENV $previewDBKey
 fi
