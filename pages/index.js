@@ -44,7 +44,7 @@ function App() {
         <title>FaunaDB ZEIT App</title>
       </Head>
 
-      <div>{s}</div>
+      <div>ENV VALUES: {s}</div>
 
       <div>
         <h2>Fetch users with SWR and graphql-request</h2>
