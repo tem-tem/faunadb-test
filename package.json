@@ -6,7 +6,7 @@
     "build": "bash ./config-fauna.sh prod $NOW_GITHUB_COMMIT_SHA",
     "start": "next start",
     "just-build": "next build",
-    "create-db": "bash ./config-fauna.sh dev"
+    "setup-db": "bash ./config-fauna.sh dev"
   },
   "dependencies": {
     "dotenv-load": "2.0.0",
