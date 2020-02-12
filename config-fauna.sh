@@ -87,7 +87,7 @@ writeENV()
 
 # no need to setup a new database on master
 #
-if ["$NOW_GITHUB_COMMIT_REF" == "master"]
+if [ "$NOW_GITHUB_COMMIT_REF" == "master" ]
 then
   yarn next build
   exit
